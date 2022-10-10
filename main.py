@@ -17,12 +17,11 @@ def validar_cpf():
         memoria = []
         
         for i in cpf:
-            
             # Vai verificar se os digitos do CPF são todos iguais
             memoria.append(i)
-            if len(memoria) > 1 and i == memoria[indice-1]:
+            if i == memoria[indice-1] and i != '.' and i != '-':
                 invalidar+=1
-            
+
             # Faz a primeira etapa da validação
             if i != '.' and i != '-':
                 caracter_convertido = int(i)
@@ -38,11 +37,11 @@ def validar_cpf():
                 if validacao1 > 1:
                     soma1 += caracter_convertido * validacao1
                     validacao1-=1
-        
                 if validacao1 == 1:
                     validador.append(i)
                 
                 indice+=1
+        
         # Verifica se o CPF é pequeno demais
         if len(cpf) < 11 and len(cpf) > 0:
             exibir['text'] = 'CPF pequeno demais'
@@ -61,7 +60,7 @@ def validar_cpf():
             valida1 = 0
         
         # Verifica se o CPF é válido
-        if str(valida) == validador[0] and str(valida1) == validador[1] and invalidar >= 11:
+        if str(valida) == validador[0] and str(valida1) == validador[1] and invalidar < 9:
             exibir['text'] = 'VÁLIDO'
         else:
             exibir['text'] = 'INVÁLIDO'
@@ -71,13 +70,15 @@ def validar_cpf():
     # Se o usuário não digitar um cpf no formato suportado
     except ValueError:
         exibir['text'] = 'Digite apenas números e caracteres como "." e "-"'
+    except:
+        exibir['text'] = 'Erro Desconhecido'
 
 #-------------------------layout-------------------------#
 janela = Tk()
 janela.title("Validador de CPF")
 
 titulo_principal = Label(janela, text='Digite um CPF:')
-titulo_principal.grid(column=0, row=0, padx=15, pady=20)
+titulo_principal.grid(column=0, row=0, padx=20, pady=10)
 
 caixa_de_texto = Entry(janela, font=('arial', 12), bd=2, width=20, justify='left')
 caixa_de_texto.grid(column=0, row=1, padx=10, pady=10)
@@ -86,5 +87,5 @@ botao = Button(janela, text='Validar', command=validar_cpf)
 botao.grid(column=1, row=1, padx=10, pady=10)
 
 exibir = Label(janela, text='')
-exibir.grid(column=0, row=2, padx=15, pady=20)
+exibir.grid(column=0, row=2, padx=10, pady=10)
 janela.mainloop()

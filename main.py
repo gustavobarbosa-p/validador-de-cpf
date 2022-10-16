@@ -1,13 +1,14 @@
 import re
 from tkinter import *
 
+
 def validar_cpf():
     cpf = caixa_de_texto.get()
     cpf = re.sub('[^0-9]', '', cpf)
 
-    validacao1 = 10
+    etapa1 = 10
     soma1 = 0
-    validacao2 = 11
+    etapa2 = 11
     soma2 = 0
 
     indice = 0
@@ -19,16 +20,24 @@ def validar_cpf():
         if indice >= 1 and i == memoria[indice-1]:
             invalidar+=1
 
-        if len(cpf) == 11 and validacao1 != 0 and indice < 9:
-            soma1 += int(i) * validacao1
-        if len(cpf) == 11 and validacao2 != 0 and indice < 10:
-            soma2 += int(i) * validacao2
+        if len(cpf) == 11 and etapa1 != 0 and indice < 9:
+            soma1 += int(i) * etapa1
+        if len(cpf) == 11 and etapa2 != 0 and indice < 10:
+            soma2 += int(i) * etapa2
         
-        validacao1-=1
-        validacao2-=1
+        etapa1-=1
+        etapa2-=1
         indice+=1
-    
-    if len(cpf) == 11 and invalidar != 10 and soma1*10 % 11 == int(memoria[9]) and soma2*10 % 11 == int(memoria[10]):
+
+    validacao1 = soma1*10 % 11
+    validacao2 = soma2*10 % 11
+
+    if validacao1 == 10:
+        validacao1 = 0
+    if validacao2 == 10:
+        validacao2 = 0
+
+    if len(cpf) == 11 and invalidar != 10 and validacao1 == int(memoria[9]) and validacao2 == int(memoria[10]):
         exibir['text'] = 'Válido'
         exibir['bg'] = '#1aff1a'
     else:

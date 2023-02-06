@@ -1,5 +1,4 @@
-# validador-de-cpf
-Algoritmo que verifica se um CPF é válido ou inválido feito com programação orientada a objetos (com layout)
+# Validador de CPF
 
 As regras para validar um cpf estão descritas em https://dicasdeprogramacao.com.br/algoritmo-para-validar-cpf/
 ## Layout do sistema:
